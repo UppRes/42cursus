@@ -13,42 +13,33 @@
 #include"get_next_line.h"
 #include <stdio.h>
 
-static int	ft_strlen(char *s)
+static int	ft_str_up_to_next_len(char *s)
 {
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (s[i] && s[i] != '\n')
 		i++;
 	return (i);
 }
 
-static char	*ft_join_up_to_next(char *rescuedbuff, char *old, char *buff)
+static char	*ft_join_up_to_next(char *rescuedbuff, char *buff)
 {
 	char			*new;
 	unsigned int	top_len;
-	unsigned int	i;
 
-	i = 0;
-	// if (!old || !buff)
-	// 	return (NULL);
-	top_len = ft_strlen(rescuedbuff) + ft_strlen(old) + ft_strlen(buff) + 1;
+	if (!rescuedbuff || !buff)
+		return (NULL);
+	top_len = ft_strlen(rescuedbuff) + ft_strlen(buff) + 1;
 	new = malloc(top_len);
 	if (!new)
 		return (NULL);
-	while (*rescuedbuff)
-		*(new++) = *(rescuedbuff + i++);
-	while (*old)
-		*(new++) = *(old++);
+	while (*rescuedbuff && *rescuedbuff != '\n')
+		*(new++) = *(rescuedbuff);
 	while (*buff && *buff != '\n')
 		*(new++) = *(buff++);
-	if (*buff == '\n')
-	{
-		*new = *(buff++);
-		i = 0;
-		while (*buff)
-			*(rescuedbuff + i) = *(buff++);
-	}
+	if (*buff || *buff == '\n')
+		*new = *(buff);
 	return (new - top_len);
 }
 
@@ -89,8 +80,9 @@ static int	ft_is_the_next_line(char *buff)
 	i = 0;
 	while (*buff && *buff != '\n')
 		buff++;
-	if (*(buff++) == '\n')
+	if (*buff == '\n')
 	{
+
 		while (buff[i])
 			i++;
 	}
@@ -104,14 +96,27 @@ char	*get_next_line(int fd)
 	static char	*rescuedbuff;
 
 	new = malloc(0);
+	new = ft_join_up_to_next(new, rescuedbuff);
 	read(fd, buff, BUFFER_SIZE);
+	new = ft_join_up_to_next(new, buff);
 	while (0 == ft_is_the_next_line(buff))
 	{
-		new = ft_join_up_to_next(rescuedbuff, new, buff);
-		rescuedbuff = malloc(ft_is_the_next_line(buff));
 		read(fd, buff, BUFFER_SIZE);
-		free(rescuedbuff);
+		new = ft_join_up_to_next(new, buff);
 	}
+	//rescuedbuff = malloc(ft_is_the_next_line(rescuedbuff));
+
+
+
+
+
+
+
+
+
+
+	// new = malloc(0);
+	// rescuedbuff = malloc(ft_is_the_next_line(buff));
 	return (new);
 }
 
