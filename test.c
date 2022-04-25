@@ -1,75 +1,108 @@
-#define BUFFER_SIZE 2
-#include<unistd.h>
-#include<fcntl.h>
-#include<stdio.h>
-#include<stdlib.h>
+#include "get_next_line.h"
 
-int	ft_strlen(char *s)
+char	*yenibaslangic(char *yenibas)
 {
-	int	i;
+	int		i;
+	int		j;
+	char	*str;
 
 	i = 0;
-	while (s[i])
+	while (yenibas[i] != '\0' && yenibas[i] != '\n')
 		i++;
-	return (i);
-}
-
-char	*ft_strtochrjoin(char *s1, char *s2, int c)
-{
-	unsigned int	i;
-	unsigned int	j;
-	char			*new;
-
-	if (!s1 || !s2)
-		return (NULL);
-	new = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!new)
-		return (NULL);
-	i = 0;
-	while (s1[i] != 0)
+	if (!yenibas[i])
 	{
-		new[i] = s1[i];
-		i++;
+		free(yenibas);
+		return (NULL);
 	}
+	str = (char *)malloc(sizeof(char) * (ft_strlen(yenibas) - i));
+	if (!str)
+		return (NULL);
+	i++;
 	j = 0;
-	while (s2[j] != 0 && s2[j] != c)
+	while (yenibas[i + j] != '\0')
 	{
-		new[i + j] = s2[j];
+		str[j] = yenibas[j + i];
 		j++;
 	}
-	new[i + j] = 0;
-	return (new);
+	str[j] = '\0';
+	free(yenibas);
+	return (str);
 }
 
-int	get_next_line_utils(char *buff)
+char	*anametinbulucu(char *yenibas)
 {
-	int	i;
+	int		i;
+	char	*str;
 
 	i = 0;
-	while (i < BUFFER_SIZE)
+	if (!yenibas[i])
+		return (NULL);
+	while (yenibas[i] != '\0' && yenibas[i] != '\n')
+		i++;
+	str = (char *)malloc(sizeof(char) * i + 2);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (yenibas[i] != '\0' && yenibas[i] != '\n')
 	{
-		if (buff[i] == '\n')
-		{
-			printf("alt satir buldum :) Yerim Seni :******* \n");
-			return (0);
-		}
+		str[i] = yenibas[i];
 		i++;
 	}
-	return (1);
+	if (yenibas[i] == '\n')
+	{
+		str[i] = yenibas[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }
 
-int	main()
+char	*okuma(int fd, char *yenibas)
 {
-	char	buff[BUFFER_SIZE];
-	char	*new;
+	char	*metin;
+	int		uzunluk;
+
+	metin = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!metin)
+		return (0);
+	uzunluk = 1;
+	while (!ft_strchr(yenibas, '\n') && uzunluk != 0)
+	{
+		uzunluk = read(fd, metin, BUFFER_SIZE);
+		if (uzunluk == -1)
+		{
+			free(metin);
+			return (NULL);
+		}			
+		metin[uzunluk] = '\0';
+		yenibas = ft_strjoin(yenibas, metin);
+	}
+	free(metin);
+	return (yenibas);
+}
+
+char	*get_next_line(int fd)
+{
+	char		*anametin;
+	static char	*yenibas;
+
+	printf("%zu",ft_strlen(anametin));
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	yenibas = okuma(fd, yenibas);
+	if (!yenibas)
+		return (NULL);
+	anametin = anametinbulucu(yenibas);
+	yenibas = yenibaslangic(yenibas);
+	return (anametin);
+}
+
+int	main(void)
+{
 	int	fd;
 
 	fd = open("text", O_RDONLY);
-	read(fd, buff, BUFFER_SIZE);
-	while (get_next_line_utils(buff))
-	{
-		printf("%s", buff);
-		new = ft_strtochrjoin(new, buff, '\0');
-		read(fd, buff, BUFFER_SIZE);
-	}
+	printf("%s\n", get_next_line(fd));
+	printf("%s\n", get_next_line(fd));
+	printf("%s\n", get_next_line(fd));
 }
