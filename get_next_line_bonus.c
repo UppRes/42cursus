@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykuru <ykuru@student.42kocaeli.com.tr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/25 12:52:39 by ykuru             #+#    #+#             */
-/*   Updated: 2022/05/25 12:52:41 by ykuru            ###   ########.fr       */
+/*   Created: 2022/05/25 12:53:09 by ykuru             #+#    #+#             */
+/*   Updated: 2022/05/25 12:53:10 by ykuru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_rescue(char *rescuedbuff)
 {
@@ -72,7 +72,7 @@ char	*anametinbulucu(char *rescuedbuff)
 char	*get_next_line(int fd)
 {
 	char		*buff;
-	static char	*rescuedbuff;
+	static char	*rescuedbuff[10000];
 	int			ctrl;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
@@ -81,7 +81,7 @@ char	*get_next_line(int fd)
 	if (!buff)
 		return (NULL);
 	ctrl = 1;
-	while (!ft_strchr(rescuedbuff, '\n') && ctrl != 0)
+	while (!ft_strchr(rescuedbuff[fd], '\n') && ctrl != 0)
 	{
 		ctrl = read(fd, buff, BUFFER_SIZE);
 		if (ctrl == -1)
@@ -90,10 +90,10 @@ char	*get_next_line(int fd)
 			return (0);
 		}
 		buff[ctrl] = '\0';
-		rescuedbuff = ft_strjoin(rescuedbuff, buff);
+		rescuedbuff[fd] = ft_strjoin(rescuedbuff[fd], buff);
 	}
 	free(buff);
-	buff = anametinbulucu(rescuedbuff);
-	rescuedbuff = ft_rescue(rescuedbuff);
+	buff = anametinbulucu(rescuedbuff[fd]);
+	rescuedbuff[fd] = ft_rescue(rescuedbuff[fd]);
 	return (buff);
 }
