@@ -2,8 +2,9 @@
 #include<stdio.h>
 #include<stdarg.h>
 
-void	ft_putchar(int x)
+void	ft_putchar(int x, int *toplam_byte)
 {
+	(*toplam_byte)++;
 	write(1, &x, 1);
 }
 
@@ -17,25 +18,44 @@ int	ft_strlen(const	char *new)
 	return (i);
 }
 
+void	type_convert()
+{
+	return ;
+}
+
 int	ft_printf(const char *new, ...)
 {
-	int		i;
+	int		index;
+	int		toplam_byte;
 	va_list	va;
 	va_start(va, new);
 
-	i = 0;
-	while (new[i])
+	index = 0;
+	toplam_byte = 0;
+	while (new[index])
 	{
-		if (new[i] == '%' && new[i + 1] == 'c')
+		if(new[index] == '%')
 		{
-			ft_putchar(va_arg(va, int));
-			i++;
+			index++;
+			type_convert();
 		}
 		else
-			ft_putchar(new[i]);
-		i++;
+			ft_putchar(new[index], &toplam_byte);
+		index++;
 	}
 	va_end(va);
+
+	return (toplam_byte);
+}
+
+int	main()
+{
+	int	x;
+
+	x = 48;
+	x += ft_printf("asd%casd", 'x');
+	write(1, &x, 1);
+	return (0);
 }
 
 //int	main()
@@ -43,14 +63,6 @@ int	ft_printf(const char *new, ...)
 //	int	x;
 
 //	x = 0;
-//	x = ft_printf("asd%casd%s", 'x', "yusuf");
+//	x = printf("asd%sasd", "yusuf");
+//	printf("%d", x);
 //}
-
-int	main()
-{
-	int	x;
-
-	x = 0;
-	x = printf("asd%casd%s", 'x');
-	printf("%d", x);
-}
