@@ -1,6 +1,6 @@
 #pragma once
 
-#include <iostream>
+#include "Bureaucrat.hpp"
 
 class Form
 {
@@ -13,8 +13,32 @@ class Form
 
 	public:
 
-		const std::string Get();
+	    void setName(const std::string &);
+    	std::string getName() const;
 
+    	void setminGrade(int signgrade);
+    	int getminGrade() const;
+
+    	void setexecuteGrade(int execgrade);
+    	int getexecuteGrade() const;
+
+    	bool getIsSigned() const;
+
+    	void beSigned(Bureaucrat &bureaucrat);
+
+		class GradeTooLowException : public std::exception
+    	{
+    	    public:
+    	        const char *what() const throw() { return ("Too Low Exception"); };
+    	};
+
+    	class GradeTooHighException : public std::exception
+    	{
+    	    public:
+    	        const char *what() const throw() { return ("Too High Exception"); };
+    	};
+
+				Form		(const std::string &, int, int);
 		/*			Orthodox Canonical Form			*/
 
 				Form		();
@@ -24,3 +48,5 @@ class Form
 
 		Form	&operator=		(const Form &);
 };
+
+std::ostream &operator<<(std::ostream &o, const Form &src);

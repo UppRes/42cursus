@@ -3,7 +3,11 @@
 
 int	main()
 {
-	Form a0("F0");
-	
-	std::cout << a0.Get() << std::endl;
+	Bureaucrat	bureaucrat("Yufus", 1);
+	Form		form("istsozlesmesi", 2, 5);
+
+	form.beSigned(bureaucrat);
+
+	std::cout << bureaucrat << std::endl;
+	std::cout << form << std::endl;
 }
