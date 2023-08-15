@@ -13,6 +13,8 @@ class Form
 
 	public:
 
+    	void beSigned(Bureaucrat &bureau);
+
 	    void setName(const std::string &);
     	std::string getName() const;
 
@@ -24,21 +26,20 @@ class Form
 
     	bool getIsSigned() const;
 
-    	void beSigned(Bureaucrat &bureaucrat);
-
 		class GradeTooLowException : public std::exception
     	{
     	    public:
-    	        const char *what() const throw() { return ("Too Low Exception"); };
+    	        const char *what() const throw() { return ("grade is too low."); };
     	};
 
     	class GradeTooHighException : public std::exception
     	{
     	    public:
-    	        const char *what() const throw() { return ("Too High Exception"); };
+    	        const char *what() const throw() { return ("grade is too high."); };
     	};
 
 				Form		(const std::string &, int, int);
+
 		/*			Orthodox Canonical Form			*/
 
 				Form		();

@@ -1,4 +1,11 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
+
+void	Bureaucrat::signForm(Form &form)
+{
+	if (form.beSigned(*this))
+		std::cout << name << " signed " << form.getname() << std::endl;
+}
 
 void		Bureaucrat::setGrade	(int grade)
 {

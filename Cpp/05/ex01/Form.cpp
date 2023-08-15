@@ -35,17 +35,19 @@ bool Form::getIsSigned() const
 	return (this->is_signed);
 }
 
-void Form::beSigned(Bureaucrat &bureaucrat)
+void Form::beSigned(Bureaucrat &bureau)
 {
 	try
 	{
-		if (bureaucrat.getGrade() > getminGrade())
+		if (is_signed == true)
+			throw GradeTooHighException();
+		else if (bureau.getGrade() > getminGrade())
 			throw GradeTooLowException();
 		this->is_signed = true;
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << std::endl;
+		std::cerr << bureau.getName() << " couldn't sign " << this->getName() << " because " << e.what() << std::endl;
 	}
 }
 

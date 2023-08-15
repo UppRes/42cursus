@@ -1,13 +1,12 @@
 #include "Form.hpp"
-#include "Bureaucrat.hpp"
 
 int	main()
 {
-	Bureaucrat	bureaucrat("Yufus", 1);
-	Form		form("istsozlesmesi", 2, 5);
+	Bureaucrat	bureau("Yufus", 2);
+	Form		form("istsozlesmesi", 1, 5);
 
-	form.beSigned(bureaucrat);
+	form.beSigned(bureau);
 
-	std::cout << bureaucrat << std::endl;
+	std::cout << bureau << std::endl;
 	std::cout << form << std::endl;
 }
