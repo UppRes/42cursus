@@ -4,7 +4,10 @@
 void	Bureaucrat::signForm(Form &form)
 {
 	if (form.beSigned(*this))
-		std::cout << name << " signed " << form.getname() << std::endl;
+	{
+		form.setSigned();
+		std::cout << name << " signed " << form.getName() << std::endl;
+	}
 }
 
 void		Bureaucrat::setGrade	(int grade)

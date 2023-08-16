@@ -13,7 +13,7 @@ class Form
 
 	public:
 
-    	void beSigned(Bureaucrat &bureau);
+    	bool beSigned(Bureaucrat &bureau);
 
 	    void setName(const std::string &);
     	std::string getName() const;
@@ -24,6 +24,7 @@ class Form
     	void setexecuteGrade(int execgrade);
     	int getexecuteGrade() const;
 
+		void setSigned();
     	bool getIsSigned() const;
 
 		class GradeTooLowException : public std::exception

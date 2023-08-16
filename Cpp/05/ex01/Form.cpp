@@ -30,25 +30,30 @@ int Form::getexecuteGrade() const
 	return (this->exec_grade);
 }
 
+void Form::setSigned()
+{
+	is_signed = true;
+}
+
 bool Form::getIsSigned() const
 {
 	return (this->is_signed);
 }
 
-void Form::beSigned(Bureaucrat &bureau)
+bool Form::beSigned(Bureaucrat &bureau)
 {
-	try
+	if (is_signed == true)
 	{
-		if (is_signed == true)
-			throw GradeTooHighException();
-		else if (bureau.getGrade() > getminGrade())
-			throw GradeTooLowException();
-		this->is_signed = true;
+		std::cout << form_name << " is already signed." << std::endl;
+		return false;
 	}
-	catch(const std::exception& e)
+	else if(bureau.getGrade() > this->getminGrade())
 	{
-		std::cerr << bureau.getName() << " couldn't sign " << this->getName() << " because " << e.what() << std::endl;
+		std::cout << bureau.getName() << " couldn't sign " << form_name << " because grade isn't enough." << std::endl;
+		throw(Form::GradeTooLowException());
 	}
+	else
+		return true;
 }
 
 				/*			Orthodox Canonical Form			*/
