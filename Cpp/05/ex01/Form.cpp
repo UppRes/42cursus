@@ -59,7 +59,9 @@ bool Form::beSigned(Bureaucrat &bureau)
 				/*			Orthodox Canonical Form			*/
 
 Form::Form(const std::string &name, int min_grade, int exec_grade):form_name(name), min_grade(min_grade), exec_grade(exec_grade)
-{}
+{
+	this->is_signed = false;
+}
 
 Form::Form()
 {
