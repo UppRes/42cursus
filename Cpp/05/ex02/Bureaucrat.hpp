@@ -3,6 +3,8 @@
 #include <iostream>
 #include <exception>
 
+class Form;
+
 class Bureaucrat
 {
 	private:
@@ -12,10 +14,12 @@ class Bureaucrat
 
 	public:
 
+			void		signForm(Form &);
+
 			class GradeTooHighException : public std::exception
 			{
 				public:
-					const char *what() const throw() {	return ("Grade is too High ( MAX : 1, MIN : 150 )"); };
+					const char *what() const throw() {	return ("Grade is too High ( MAX : 1, MIN : 150 )");	};
 			};
 
 			class GradeTooLowException : public std::exception

@@ -2,24 +2,11 @@
 
 void		Bureaucrat::setGrade	(int grade)
 {
-	try
-	{
-		if (grade > 150)
-		{
-			this->grade = 150;
-			throw	GradeTooLowException();
-		}
-		else if (grade < 1)
-		{
-			this->grade = 1;
-			throw	GradeTooHighException();
-		}
-		this->grade = grade;
-	}
-	catch (const std::exception& e)
-	{
-		std::cout << "Error : " << getName() << ", Bureaucrat " << e.what() << std::endl;
-	}
+	if (grade > 150)
+		throw	GradeTooLowException();
+	else if (grade < 1)
+		throw	GradeTooHighException();
+	this->grade = grade;
 }
 
 void		Bureaucrat::increment()
