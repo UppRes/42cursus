@@ -2,7 +2,7 @@
 
 #include "Bureaucrat.hpp"
 
-class Form
+class AForm
 {
 	private:
 
@@ -39,16 +39,16 @@ class Form
     	        const char *what() const throw() { return ("grade is too high."); };
     	};
 
-				Form		(const std::string &, int, int);
+				AForm		(const std::string &, int, int);
 
 		/*			Orthodox Canonical Form			*/
 
-				Form		();
-				Form		(const std::string &);
-				Form		(const Form &);
-				~Form		();
+				AForm		();
+				AForm		(const std::string &);
+				AForm		(const AForm &);
+				~AForm		();
 
-		Form	&operator=		(const Form &);
+		AForm	&operator=		(const AForm &);
 };
 
-std::ostream &operator<<(std::ostream &o, const Form &src);
+std::ostream &operator<<(std::ostream &o, const AForm &src);
