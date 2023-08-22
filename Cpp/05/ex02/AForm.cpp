@@ -10,6 +10,16 @@ std::string AForm::getName() const
 	return (this->form_name);
 }
 
+void AForm::setTargetName(const std::string &target_name)
+{
+	this->target_name = target_name;
+}
+
+std::string AForm::getTargetName() const
+{
+	return (this->target_name);
+}
+
 void AForm::setminGrade(int signgrade)
 {
 	this->min_grade = signgrade;
@@ -58,39 +68,46 @@ bool AForm::beSigned(Bureaucrat &bureau)
 
 				/*			Orthodox Canonical Form			*/
 
-AForm::AForm(const std::string &name, int min_grade, int exec_grade):form_name(name), min_grade(min_grade), exec_grade(exec_grade)
-{}
-
-AForm::AForm()
+AForm::AForm(const std::string &name, const std::string &target_name, int min_grade, int exec_grade):form_name(name), target_name(target_name), min_grade(min_grade), exec_grade(exec_grade)
 {
-	this->is_signed = false;
+	is_signed = false;
 }
 
-AForm::AForm(const std::string &name)
+AForm::AForm():form_name("Undefined"), target_name("Undefined"), min_grade(150), exec_grade(150)
 {
-	this->form_name		= name;
-	this->is_signed		= false;
-	this->min_grade		= 150;
-	this->exec_grade	= 150;
+	is_signed = false;
 }
 
-AForm::AForm(const AForm &)
+AForm::AForm(const std::string &name):form_name(name), target_name("Undefined"), min_grade(150), exec_grade(150)
+{
+	is_signed = false;
+}
+
+AForm::AForm(const AForm &other):form_name(other.form_name), target_name(other.target_name), is_signed(other.is_signed), min_grade(other.min_grade), exec_grade(other.exec_grade)
 {}
 
 AForm::~AForm()
 {
-	this->is_signed = false;
+	is_signed = false;
 }
 
-AForm	&AForm::operator=(const AForm &)
+AForm	&AForm::operator=(const AForm &form)
 {
+	form_name = form.getName();
+	target_name = form.getTargetName();
+	is_signed = form.getIsSigned();
+	min_grade = form.getminGrade();
+	exec_grade = form.getexecuteGrade();
+
 	return (*this);
 }
 
 std::ostream& operator<<(std::ostream& os, const AForm& form) 
 {
-	os << "AForm: " << form.getName() << std::endl << "Signed: " << (form.getIsSigned() ? "Yes" : "No")
-		<< std::endl << "Grade Required to Sign: " << form.getminGrade()
-		<< std::endl << "Grade Required to Execute: " << form.getexecuteGrade();
+	os << "Form Name: " << form.getName() << std::endl
+	<< "Target Name: " << form.getTargetName() << std::endl
+	<< "Signed: " << (form.getIsSigned() ? "Yes" : "No") << std::endl
+	<< "Grade Required to Sign: " << form.getminGrade() << std::endl
+	<< "Grade Required to Execute: " << form.getexecuteGrade();
     return (os);
 }

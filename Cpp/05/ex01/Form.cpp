@@ -60,32 +60,34 @@ bool Form::beSigned(Bureaucrat &bureau)
 
 Form::Form(const std::string &name, int min_grade, int exec_grade):form_name(name), min_grade(min_grade), exec_grade(exec_grade)
 {
-	this->is_signed = false;
+	is_signed = false;
 }
 
-Form::Form()
+Form::Form():form_name("Undefined"), min_grade(150), exec_grade(150)
 {
-	this->is_signed = false;
+	is_signed = false;
 }
 
-Form::Form(const std::string &name)
+Form::Form(const std::string &name):form_name(name), min_grade(150), exec_grade(150)
 {
-	this->form_name		= name;
-	this->is_signed		= false;
-	this->min_grade		= 150;
-	this->exec_grade	= 150;
+	is_signed = false;
 }
 
-Form::Form(const Form &)
+Form::Form(const Form &other):form_name(other.form_name), is_signed(other.is_signed), min_grade(other.min_grade), exec_grade(other.exec_grade)
 {}
 
 Form::~Form()
 {
-	this->is_signed = false;
+	is_signed = false;
 }
 
-Form	&Form::operator=(const Form &)
+Form	&Form::operator=(const Form &form)
 {
+	form_name = form.getName();
+	is_signed = form.getIsSigned();
+	min_grade = form.getminGrade();
+	exec_grade = form.getexecuteGrade();
+
 	return (*this);
 }
 

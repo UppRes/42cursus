@@ -7,16 +7,22 @@ class AForm
 	private:
 
 		std::string		form_name;
+		std::string		target_name;
 		bool			is_signed;
 		int				min_grade;
 		int				exec_grade;
 
 	public:
 
+		virtual void action() = 0;
+
     	bool beSigned(Bureaucrat &bureau);
 
 	    void setName(const std::string &);
     	std::string getName() const;
+
+		void setTargetName(const std::string &);
+		std::string getTargetName() const;
 
     	void setminGrade(int signgrade);
     	int getminGrade() const;
@@ -39,7 +45,7 @@ class AForm
     	        const char *what() const throw() { return ("grade is too high."); };
     	};
 
-				AForm		(const std::string &, int, int);
+				AForm		(const std::string &, const std::string &, int, int);
 
 		/*			Orthodox Canonical Form			*/
 
