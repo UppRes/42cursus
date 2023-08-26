@@ -16,7 +16,9 @@ class AForm
 
 		virtual void action() = 0;
 
-    	bool beSigned(Bureaucrat &bureau);
+		void	execute(Bureaucrat &bureau);
+
+    	void	beSigned(Bureaucrat &bureau);
 
 	    void setName(const std::string &);
     	std::string getName() const;
@@ -36,14 +38,20 @@ class AForm
 		class GradeTooLowException : public std::exception
     	{
     	    public:
-    	        const char *what() const throw() { return ("grade is too low."); };
+    	        const char *what() const throw();
     	};
 
     	class GradeTooHighException : public std::exception
     	{
     	    public:
-    	        const char *what() const throw() { return ("grade is too high."); };
+    	        const char *what() const throw();
     	};
+
+		class FormNotSignedException : public std::exception
+		{
+			public:
+				const char *what() const throw();
+		};
 
 				AForm		(const std::string &, const std::string &, int, int);
 
