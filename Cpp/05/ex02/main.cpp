@@ -5,7 +5,7 @@
 int main()
 {
 	Bureaucrat				b1("Yufus", 5);
-	ShrubberyCreationForm	f1("Palmiye");
+	ShrubberyCreationForm	f1("Palm_tree");
 	RobotomyRequestForm		f2("Rico");
 	PresidentialPardonForm	f3("Alexander");
 

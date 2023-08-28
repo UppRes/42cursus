@@ -1,8 +1,26 @@
 #include "ShrubberyCreationForm.hpp"
+#include <fstream>
 
 void ShrubberyCreationForm::action()
 {
-	std::cout << "test" << std::endl;
+	std::fstream	fileout;
+
+	fileout.open((getTargetName() + "_shrubbery").c_str(), std::ios::out);
+
+	fileout
+<<"        __ _.--..--._ _"<< std::endl
+<<"     .-' _/   _/\\_   \\_'-."<< std::endl
+<<"    |__ /   _/\\__/\\_   \\__|"<< std::endl
+<<"       |___/\\_\\__/  \\___|"<< std::endl
+<<"              \\__/"<< std::endl
+<<"              \\__/"<< std::endl
+<<"               \\__/"<< std::endl
+<<"                \\__/"<< std::endl
+<<"             ____\\__/___"<< std::endl
+<<"       . - '             ' -."<< std::endl
+<<"      /                      \\"<< std::endl
+<<"~~~~~~~  ~~~~~ ~~~~~  ~~~ ~~~  ~~~~~"<< std::endl
+<<"  ~~~   ~~~~~   ~!~~   ~~ ~  ~ ~ ~pjb"<< std::endl;
 }
 
 /*			Orthodox Canonical Form			*/
