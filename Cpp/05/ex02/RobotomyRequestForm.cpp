@@ -2,7 +2,16 @@
 
 void RobotomyRequestForm::action()
 {
-	std::cout << "test" << std::endl;
+	std::cout << "* DRILLING NOISES *" << std::endl;
+	std::cout << "* DRILLING NOISES *" << std::endl;
+	std::cout << "* DRILLING NOISES *" << std::endl;
+
+	std::srand(std::time(0));
+
+	if (rand() % 2)
+		std::cout << getTargetName() << " has been robotomized successfully" << std::endl;
+	else
+		std::cout << getTargetName() << " has failed to be robotomized." << std::endl;
 }
 
 /*			Orthodox Canonical Form			*/

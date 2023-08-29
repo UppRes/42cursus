@@ -2,7 +2,7 @@
 
 void PresidentialPardonForm::action()
 {
-	std::cout << "test" << std::endl;
+	std::cout << "Estimated " << getTargetName() << ", we inform you that you have been pardoned by Zaphod Beeblerox." << std::endl;
 }
 
 /*			Orthodox Canonical Form			*/
