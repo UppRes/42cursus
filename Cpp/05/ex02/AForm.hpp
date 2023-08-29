@@ -53,6 +53,12 @@ class AForm
 				const char *what() const throw();
 		};
 
+		class FormSignedException : public std::exception
+		{
+			public:
+				const char *what() const throw();
+		};
+
 				AForm		(const std::string &, const std::string &, int, int);
 
 		/*			Orthodox Canonical Form			*/

@@ -64,7 +64,10 @@ void AForm::execute(Bureaucrat &bureau)
 void AForm::beSigned(Bureaucrat &bureau)
 {
 	if (is_signed == true)
+	{
 		std::cout << form_name << " is already signed." << std::endl;
+		throw (AForm::FormSignedException());
+	}
 	else if(bureau.getGrade() > this->getminGrade())
 	{
 		std::cout << bureau.getName() << " couldn't sign " << form_name << " because grade isn't enough." << std::endl;
@@ -85,6 +88,11 @@ const char	*AForm::GradeTooLowException::what( void ) const throw()
 const char	*AForm::FormNotSignedException::what( void ) const throw()
 {
 	return ("Exception: Form is not signed!");
+}
+
+const char	*AForm::FormSignedException::what( void ) const throw()
+{
+	return ("Exception: Form is already signed!");
 }
 
 				/*			Orthodox Canonical Form			*/

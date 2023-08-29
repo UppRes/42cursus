@@ -40,20 +40,33 @@ bool Form::getIsSigned() const
 	return (this->is_signed);
 }
 
-bool Form::beSigned(Bureaucrat &bureau)
+void Form::beSigned(Bureaucrat &bureau)
 {
 	if (is_signed == true)
 	{
 		std::cout << form_name << " is already signed." << std::endl;
-		return false;
+		throw (Form::FormSignedException());
 	}
 	else if(bureau.getGrade() > this->getminGrade())
 	{
 		std::cout << bureau.getName() << " couldn't sign " << form_name << " because grade isn't enough." << std::endl;
 		throw(Form::GradeTooLowException());
 	}
-	else
-		return true;
+}
+
+const char	*Form::GradeTooHighException::what( void ) const throw()
+{
+	return ("Exception: Grade too high!");
+}
+
+const char	*Form::GradeTooLowException::what( void ) const throw()
+{
+	return ("Exception: Grade is too low!");
+}
+
+const char	*Form::FormSignedException::what( void ) const throw()
+{
+	return ("Exception: Form is already signed!");
 }
 
 				/*			Orthodox Canonical Form			*/

@@ -13,7 +13,7 @@ class Form
 
 	public:
 
-    	bool beSigned(Bureaucrat &bureau);
+    	void beSigned(Bureaucrat &bureau);
 
 	    void setName(const std::string &);
     	std::string getName() const;
@@ -30,14 +30,20 @@ class Form
 		class GradeTooLowException : public std::exception
     	{
     	    public:
-    	        const char *what() const throw() { return ("grade is too low."); };
+    	        const char *what() const throw();
     	};
 
     	class GradeTooHighException : public std::exception
     	{
     	    public:
-    	        const char *what() const throw() { return ("grade is too high."); };
+    	        const char *what() const throw();
     	};
+
+		class FormSignedException : public std::exception
+		{
+			public:
+				const char *what() const throw();
+		};
 
 				Form		(const std::string &, int, int);
 
