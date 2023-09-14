@@ -10,7 +10,7 @@ void ScalarConverter::convert(std::string av1)
 		numd = std::strtod(av1.c_str(), NULL);
 
 	std::cout << "char: ";
-    if (!((numd < std::numeric_limits<char>::min()) || (numd > std::numeric_limits<char>::max())))
+    if (!((numd < 0) || (numd > std::numeric_limits<char>::max()) || (numd != numd)))
 	{
         if (std::isprint(static_cast<int>(numd)))
             std::cout << "\'" << static_cast<char>(numd) << "\'";
@@ -22,7 +22,7 @@ void ScalarConverter::convert(std::string av1)
     std::cout << std::endl;
 
     std::cout << "int : ";
-    if (!((numd < std::numeric_limits<int>::min()) || (numd > std::numeric_limits<int>::max())))
+    if (!((numd < std::numeric_limits<int>::min()) || (numd > std::numeric_limits<int>::max()) || (numd != numd)))
         std::cout << static_cast<int>(numd);
     else
         std::cout << "impossible";
