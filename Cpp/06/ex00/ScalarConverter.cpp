@@ -29,12 +29,12 @@ void ScalarConverter::convert(std::string av1)
     std::cout << std::endl;
 
     std::cout << "float : " << static_cast<float>(numd);
-    if (static_cast<float>(numd) - static_cast<int>(numd) == static_cast<float>(0))
+    if (static_cast<float>(numd) - static_cast<long>(numd) == 0.0f)
         std::cout << ".0";
     std::cout << "f" << std::endl;
 
     std::cout << "double : " << numd;
-    if (numd - static_cast<long>(numd) == static_cast<double>(0))
+    if (numd - static_cast<long>(numd) == 0.0)
         std::cout << ".0";
     std::cout << std::endl;
 };
