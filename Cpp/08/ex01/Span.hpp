@@ -14,7 +14,11 @@ class Span
     public:
     	Span() {}
         Span(unsigned int N) : N(N) {}
-    	Span &operator=(const Span &copy): N(copy.N), numbers(copy.numbers){}
+    	Span &operator=(const Span &copy) {
+			this->N = copy.N;
+			this->numbers = copy.numbers;
+			return (*this);
+		}
 		~Span(){
 			numbers.clear();
 		}
@@ -24,7 +28,6 @@ class Span
                 throw std::overflow_error("Span is full");
             }
             numbers.push_back(num);
-			std::cout << num << std::endl;
         }
 
 		unsigned int shortestSpan() {

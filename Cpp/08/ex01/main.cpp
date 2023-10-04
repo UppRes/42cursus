@@ -2,12 +2,12 @@
 
 int main()
 {
-    Span span(10);
+    Span span(10000);
     std::vector<int> test;
 
     srand(time(NULL));
     try {
-        for (int i = 1; i < 10; ++i) {
+        for (int i = 1; i < 9999; ++i) {
             test.push_back(-i * rand());
         }
         // span.addNumber(std::numeric_limits<int>::min());
