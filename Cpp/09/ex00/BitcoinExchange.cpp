@@ -26,6 +26,11 @@ bool Bitcoin::DateCheck(std::string date)
 	size_t pos1;
 	size_t pos2;
 
+	if (!date[0])
+	{
+		error_w("Error: Date is empty", "NULL");
+		return (false);
+	}
 	pos1 = date.find("-");
     date_year = date.substr(0, pos1);
     pos2 = date.find("-", pos1 + 1);
@@ -65,9 +70,8 @@ bool Bitcoin::DateCheck(std::string date)
 void Bitcoin::checkFile(std::string variable)
 {
 	std::ifstream read;
-	size_t delimiterPos;
 	std::string date;
-	std::string tmp_btc_value;
+	std::string value;
 
 	Bitcoin::setContainer_data();
 
@@ -85,38 +89,40 @@ void Bitcoin::checkFile(std::string variable)
 	}
 	while (getline(read, variable))
 	{
-		delimiterPos = variable.find("|");
-		date = variable.substr(0, delimiterPos);
-		delimiterPos = date.find(" ");
-		date = date.substr(0,delimiterPos);
-		delimiterPos = variable.find("|");
-		if(delimiterPos == std::string::npos)
+		value.clear();
+		date.clear();
+        std::istringstream  ss(variable);
+        if (std::getline(ss, date, '|') && ss >> value)
 		{
-			error_w("Error: bad input => ", date);
-			continue;
+            date.erase(0, date.find_first_not_of(" \t\n\r\f\v"));
+            date.erase(date.find_last_not_of(" \t\n\r\f\v") + 1);
+            value.erase(0, value.find_first_not_of(" \t\n\r\f\v"));
+            value.erase(value.find_last_not_of(" \t\n\r\f\v") + 1);
 		}
-		tmp_btc_value = variable.substr(delimiterPos, variable.length());
-		delimiterPos = tmp_btc_value.find(" ") + 1;
-		tmp_btc_value = tmp_btc_value.substr(delimiterPos, tmp_btc_value.length());
 		if(Bitcoin::DateCheck(date) == false)
 			continue;
-		if(!tmp_btc_value.compare("|"))
+		if (!value[0])
+		{
+			error_w("Error: Value is empty", "NULL");
+			continue;
+		}
+		if(!value.compare("|"))
 		{
 			error_w("Error: Input File Entered Values Are Incorrect.", "NULL");
 			continue;
 		}
-		if(std::strtod(tmp_btc_value.c_str(), NULL) < 0)
+		if(std::strtod(value.c_str(), NULL) < 0)
 		{
 			error_w("Error: not a positive number.", "NULL");
 			continue;
 		}
-		if(Bitcoin::setContainer_calculate(date) * std::strtod(tmp_btc_value.c_str(), NULL) > INT_MAX)
+		if(std::strtod(value.c_str(), NULL) > 1000)
 		{
 			error_w("Error: too large a number.", "NULL");
 			continue;
 		}
-		std::cout << date << " => " << tmp_btc_value << " = "<< std::ends;
-		std::cout << Bitcoin::setContainer_calculate(date) * std::strtod(tmp_btc_value.c_str(), NULL) << std::endl;
+		std::cout << date << " => " << value << " = "<< std::ends;
+		std::cout << Bitcoin::setContainer_calculate(date) * std::strtod(value.c_str(), NULL) << std::endl;
 	}
 	read.close();
 }

@@ -6,7 +6,6 @@ int					PmergeMe::_insertSortingLimit = 100;
 
 std::string			PmergeMe::intToString( int num )
 {
-
 	std::stringstream ss;
 	ss << num;
 	return (ss.str());

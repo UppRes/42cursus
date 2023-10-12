@@ -7,11 +7,10 @@ std::stack<int>				RPN::_arr;
 
 void	RPN::checkArg( int argc, char **argv )
 {
-	if (argc < 2)
-		throw ( NotEnoughtInputs() );
-	if (argc > 2)
-		throw ( TooManyInputs() );
+	if(argc != 2)
+		throw NotEnoughtInputs();
 	_input = argv[1];
+	RPN::checkvalue();
 }
 
 void	RPN::setContesetContainer(void)
@@ -77,7 +76,9 @@ void	RPN::checkvalue(void)
 
 void	RPN::printRPN( void )
 {
-	RPN::checkvalue();
 	RPN::setContesetContainer();
-	std::cout << _arr.top() << std::endl;
+	if (_arr.size() == 1)
+		std::cout << _arr.top() << std::endl;
+	else
+		std::cout << "Error : too many arguments" << std::endl;
 }
